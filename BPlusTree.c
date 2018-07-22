@@ -1015,18 +1015,11 @@ static BPlusTree RecursiveRemove(BPlusTree T,KeyType Key,int i,BPlusTree Parent)
     /* 除根外，所有非树叶节点的儿子数在[M/2]到M之间。(符号[]表示向上取整) */
 
 
-    else if (Parent != NULL && T->Children[0] != NULL && T->KeyNum < LIMIT_M_2)
+    else if (Parent != NULL && T->KeyNum < LIMIT_M_2)
 
 
         NeedAdjust = 1;
 
-
-    /* （非根）树叶中关键字的个数也在[M/2]和M之间 */
-
-
-    else if (Parent != NULL && T->Children[0] == NULL && T->KeyNum < LIMIT_M_2)
-
-        NeedAdjust = 1; 
 
     /* 调整节点 */
 
@@ -1063,7 +1056,9 @@ static BPlusTree RecursiveRemove(BPlusTree T,KeyType Key,int i,BPlusTree Parent)
 
                 MoveElement(Sibling, T, Parent, j, 1);
 
-            }else{
+            }
+		
+	    else{
 
                 if (i == 0)
 
